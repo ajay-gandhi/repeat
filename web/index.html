@@ -9,15 +9,21 @@
 <body>
   <div class="root">
     <input id="selectFile" type="file" accept="audio/*" />
-    <button class="togglePlayback" type="button">Play</button>
+    <button id="togglePlayback" type="button">Play</button>
     <audio id="audio" controls="true"></audio>
     <div id="timeSelector" style="width: 400px; border: 1px solid blue"></div>
   </div>
   <script>
-  var DURATION = 1, START = 0, END = 1;
+  let DURATION = 1, START = 0, END = 1;
+  let playing = false;
+
+  // Grab elements
+  const selectFile = document.getElementById("selectFile")
+  const audio = document.getElementById("audio");
+  const timeSelector = document.getElementById("timeSelector");
+  const togglePlayback = document.getElementById("togglePlayback");
 
   // Setup slider
-  var timeSelector = document.getElementById("timeSelector");
   noUiSlider.create(timeSelector, {
     start: [0, 1],
     connect: true,
@@ -26,36 +32,50 @@
       "max": [1],
     },
   });
-  timeSelector.noUiSlider.on("change", function () {
-    var values = timeSelector.noUiSlider.get();
+  timeSelector.noUiSlider.on("change", () => {
+    const values = timeSelector.noUiSlider.get();
     START = parseFloat(values[0]).toFixed(2);
     END = parseFloat(values[1]).toFixed(2);
   });
 
   // File upload actions
-  function console_log (s) { return eel.console_log(JSON.stringify(s)); }
-  var selectFile = document.getElementById("selectFile")
-  var audio = document.getElementById("audio");
+  const console_log = s => eel.console_log(JSON.stringify(s));
 
-  selectFile.addEventListener("change", function () {
+  selectFile.addEventListener("change", () => {
+    if (!selectFile.files[0]) return;
     if (audio.src) URL.revokeObjectURL(audio.src);
-    var objectUrl = URL.createObjectURL(selectFile.files[0]);
-    audio.src = objectUrl;
+    audio.src = URL.createObjectURL(selectFile.files[0]);
+  });
+
+  // Audio actions
+  togglePlayback.addEventListener("click", () => {
+    if (playing) {
+      playing = false;
+      audio.pause();
+      togglePlayback.textContent = "Play";
+    } else {
+      audio.play().then(function () {
+        playing = true;
+        togglePlayback.textContent = "Pause";
+      }).catch(function (e) {
+        console.error("Error playing audio", e);
+      });
+    }
   });
 
   // Audio events
-  audio.addEventListener("durationchange", function () {
-    DURATION = audio.duration;
+  audio.addEventListener("durationchange", () => {
+    END = DURATION = audio.duration;
     updateSlider();
   });
-  audio.addEventListener("timeupdate", function () {
+  audio.addEventListener("timeupdate", () => {
     if (audio.currentTime > END) {
       audio.currentTime = START;
     }
   });
 
   // Misc functions
-  function updateSlider () {
+  const updateSlider = () => {
     timeSelector.noUiSlider.updateOptions({
       start: [0, DURATION],
       range: {
