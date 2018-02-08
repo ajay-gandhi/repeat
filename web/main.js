@@ -2,7 +2,7 @@ let DURATION = 1, START = 0, END = 1, WAIT = 0;
 let playing = false;
 
 // Grab elements
-const elementIds = ["selectFile", "selectFileInput", "audio", "timeSelector", "selectedTime", "togglePlayback", "waitBetweenRepeat", "fileTitle", "fileDuration"];
+const elementIds = ["selectFile", "selectFileInput", "audio", "timeSelector", "selectedTime", "togglePlayback", "waitBetweenRepeat", "fileTitle", "fileDuration", "currentTime"];
 const SELECTORS = elementIds.reduce((memo, id) => {
   memo[id] = document.getElementById(id);
   return memo;
@@ -85,7 +85,10 @@ SELECTORS.audio.addEventListener("durationchange", () => {
   updateSlider();
 });
 let repeatTimeout;
+const timeSelectorWidth = SELECTORS.timeSelector.offsetWidth;
 SELECTORS.audio.addEventListener("timeupdate", () => {
+  SELECTORS.currentTime.style.left = SELECTORS.audio.currentTime / DURATION * timeSelectorWidth + "px";
+
   if (repeatTimeout) return;
   if (SELECTORS.audio.currentTime > END || SELECTORS.audio.currentTime < START) {
     SELECTORS.audio.muted = true;
