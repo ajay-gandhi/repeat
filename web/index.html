@@ -2,19 +2,33 @@
 <html>
 <head>
   <title>Repeat</title>
-  <link rel="stylesheet" href="/nouislider.min.css">
-  <!-- <script src="/eel.js"></script> -->
-  <script src="/nouislider.min.js"></script>
+  <link rel="stylesheet" href="nouislider.min.css">
+  <link rel="stylesheet" href="style.css">
+  <!-- <script src="eel.js"></script> -->
+  <script src="nouislider.min.js"></script>
 </head>
 <body>
-  <div class="root">
-    <input id="selectFile" type="file" accept="audio/*" />
-    <input id="waitBetweenRepeat" type="text" placeholder="Wait between repeat in seconds" />
-    <button id="togglePlayback" type="button">Play</button>
-    <audio id="audio" controls="true" loop></audio>
-    <div id="timeSelector" style="width: 400px; border: 1px solid blue"></div>
-    <div id="selectedTime"></div>
+  <div id="root">
+    <div class="Pane">
+      <label for="selectFileInput">
+        <div id="selectFile">
+          <h2>Select file</h2>
+        </div>
+      </label>
+      <input id="selectFileInput" type="file" accept="audio/*" />
+    </div>
+    <div class="Pane">
+      <input id="waitBetweenRepeat" type="text" placeholder="Wait between repeat in seconds" />
+      <button id="togglePlayback" type="button">Play</button>
+      <div class="metadata">
+        <h3 id="fileTitle"></h3>
+        <h4 id="fileDuration"></h4>
+      </div>
+      <div id="timeSelector" style="width: 400px; border: 1px solid blue"></div>
+      <div id="selectedTime"></div>
+    </div>
   </div>
+  <audio id="audio" controls="true" loop></audio>
   <script src="main.js"></script>
 </body>
 </html>

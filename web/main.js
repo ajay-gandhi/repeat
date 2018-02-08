@@ -2,12 +2,16 @@ let DURATION = 1, START = 0, END = 1, WAIT = 0;
 let playing = false;
 
 // Grab elements
-const selectFile = document.getElementById("selectFile")
+const firstPane = document.getElementsByClassName("Pane")[0];
+const selectFile = document.getElementById("selectFile");
+const selectFileInput = document.getElementById("selectFileInput");
 const audio = document.getElementById("audio");
 const timeSelector = document.getElementById("timeSelector");
 const selectedTime = document.getElementById("selectedTime");
 const togglePlayback = document.getElementById("togglePlayback");
 const waitBetweenRepeat = document.getElementById("waitBetweenRepeat");
+const fileTitle = document.getElementById("fileTitle");
+const fileDuration = document.getElementById("fileDuration");
 
 // Setup slider
 noUiSlider.create(timeSelector, {
@@ -43,11 +47,15 @@ const updateSlider = () => {
 
 // File upload actions
 const console_log = s => eel.console_log(JSON.stringify(s));
+selectFileInput.addEventListener("change", () => {
+  if (!selectFileInput.files[0]) return;
 
-selectFile.addEventListener("change", () => {
-  if (!selectFile.files[0]) return;
+  const file = selectFileInput.files[0];
   if (audio.src) URL.revokeObjectURL(audio.src);
-  audio.src = URL.createObjectURL(selectFile.files[0]);
+  audio.src = URL.createObjectURL(file);
+
+  fileTitle.textContent = file.name;
+  firstPane.classList.add("Pane--advanced");
 });
 
 // Audio actions
@@ -77,6 +85,7 @@ waitBetweenRepeat.addEventListener("change", () => {
 audio.addEventListener("durationchange", () => {
   END = DURATION = audio.duration;
   START = 0;
+  fileDuration.textContent = formatTime(DURATION);
   updateSlider();
 });
 let repeatTimeout;
