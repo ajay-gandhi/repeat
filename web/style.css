@@ -116,10 +116,8 @@ label span {
 }
 .noUi-handle {
   cursor: grab;
-  cursor: -webkit-grab;
   z-index: 10;
 }
 .noUi-handle:active {
   cursor: grabbing;
-  cursor: -webkit-grabbing;
 }
