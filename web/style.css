@@ -2,6 +2,7 @@
   padding: 0;
   margin: 0;
   outline: none;
+  font-family: "Roboto", sans-serif;
 }
 #root {
   width: 400px;
@@ -43,7 +44,7 @@
 #fileTitle {
   font-size: 24px;
   margin-bottom: 10px;
-  height: 30px;
+  height: 38px;
   width: 100%;
   overflow-x: auto;
   white-space: nowrap;
@@ -67,6 +68,7 @@
   border: 1px solid #ccc;
   border-radius: 5px;
   background: none;
+  cursor: pointer;
 }
 #togglePlayback:hover {
   background: #f2f2f2;
@@ -81,6 +83,9 @@
   font-size: 14px;
   padding: 4px;
   border: 1px solid #ccc;
+}
+label span {
+  font-size: 14px;
 }
 
 #timeSelector {

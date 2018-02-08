@@ -1,4 +1,4 @@
 ## Tasks
 
+* Style UI
 * Build recents
-* Build UI
