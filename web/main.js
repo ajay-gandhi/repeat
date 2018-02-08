@@ -1,4 +1,4 @@
-let DURATION = 1, START = 0, END = 1;
+let DURATION = 1, START = 0, END = 1, WAIT = 0;
 let playing = false;
 
 // Grab elements
@@ -6,6 +6,7 @@ const selectFile = document.getElementById("selectFile")
 const audio = document.getElementById("audio");
 const timeSelector = document.getElementById("timeSelector");
 const togglePlayback = document.getElementById("togglePlayback");
+const waitBetweenRepeat = document.getElementById("waitBetweenRepeat");
 
 // Setup slider
 noUiSlider.create(timeSelector, {
@@ -18,9 +19,19 @@ noUiSlider.create(timeSelector, {
 });
 timeSelector.noUiSlider.on("change", () => {
   const values = timeSelector.noUiSlider.get();
+  audio.currentTime = START;
   START = parseFloat(values[0]).toFixed(2);
   END = parseFloat(values[1]).toFixed(2);
 });
+const updateSlider = () => {
+  timeSelector.noUiSlider.updateOptions({
+    start: [0, DURATION],
+    range: {
+      "min": [0],
+      "max": [DURATION],
+    },
+  });
+}
 
 // File upload actions
 const console_log = s => eel.console_log(JSON.stringify(s));
@@ -46,25 +57,25 @@ togglePlayback.addEventListener("click", () => {
     });
   }
 });
+waitBetweenRepeat.addEventListener("change", () => {
+  WAIT = parseInt(waitBetweenRepeat.value, 10) * 1000;
+});
 
 // Audio events
 audio.addEventListener("durationchange", () => {
   END = DURATION = audio.duration;
+  START = 0;
   updateSlider();
 });
+let repeatTimeout;
 audio.addEventListener("timeupdate", () => {
-  if (audio.currentTime > END) {
-    audio.currentTime = START;
+  if (repeatTimeout) return;
+  if (audio.currentTime > END || audio.currentTime < START) {
+    audio.muted = true;
+    repeatTimeout = setTimeout(() => {
+      audio.muted = false;
+      audio.currentTime = START;
+      repeatTimeout = null;
+    }, WAIT);
   }
 });
-
-// Misc functions
-const updateSlider = () => {
-  timeSelector.noUiSlider.updateOptions({
-    start: [0, DURATION],
-    range: {
-      "min": [0],
-      "max": [DURATION],
-    },
-  });
-}

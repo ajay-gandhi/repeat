@@ -9,8 +9,9 @@
 <body>
   <div class="root">
     <input id="selectFile" type="file" accept="audio/*" />
+    <input id="waitBetweenRepeat" type="text" placeholder="Wait between repeat in seconds" />
     <button id="togglePlayback" type="button">Play</button>
-    <audio id="audio" controls="true"></audio>
+    <audio id="audio" controls="true" loop></audio>
     <div id="timeSelector" style="width: 400px; border: 1px solid blue"></div>
   </div>
   <script src="main.js"></script>
