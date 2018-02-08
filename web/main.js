@@ -51,7 +51,11 @@ selectFile.addEventListener("change", () => {
 });
 
 // Audio actions
-togglePlayback.addEventListener("click", () => {
+togglePlayback.addEventListener("click", togglePlaying);
+window.addEventListener("keydown", (e) => {
+  if (e.keyCode === 32) togglePlaying();
+});
+function togglePlaying () {
   if (playing) {
     playing = false;
     audio.pause();
@@ -64,7 +68,7 @@ togglePlayback.addEventListener("click", () => {
       console.error("Error playing audio", e);
     });
   }
-});
+};
 waitBetweenRepeat.addEventListener("change", () => {
   WAIT = parseInt(waitBetweenRepeat.value, 10) * 1000;
 });
