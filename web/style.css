@@ -1,3 +1,8 @@
+* {
+  padding: 0;
+  margin: 0;
+  outline: none;
+}
 #root {
   width: 400px;
   height: 300px;
@@ -7,12 +12,14 @@
 .Pane {
   width: 100%;
   height: 100%;
+  text-align: center;
   transition: margin-top 200ms ease;
 }
 .Pane--advanced {
   margin-top: -300px;
 }
 
+/* First pane */
 #selectFile {
   height: 100%;
   display: flex;
@@ -22,4 +29,62 @@
 }
 #selectFileInput {
   display: none;
+}
+
+/* Second pane */
+.metadata {
+  height: 100px;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+}
+#fileTitle {
+  font-size: 24px;
+  margin-bottom: 10px;
+  height: 30px;
+  width: 100%;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+#fileDuration {
+  font-size: 18px;
+}
+
+.controls {
+  height: 140px;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-around;
+  align-items: center;
+  padding: 15px;
+}
+#togglePlayback {
+  width: 100%;
+  height: 30px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background: none;
+}
+#togglePlayback:hover {
+  background: #f2f2f2;
+}
+#togglePlayback:active {
+  background: #ccc;
+  border-color: #999;
+}
+
+#waitBetweenRepeat {
+  width: 40px;
+  font-size: 14px;
+  padding: 4px;
+  border: 1px solid #ccc;
+}
+
+#timeSelector {
+  margin: 10px 20px;
+  display: block;
+  width: 95%;
 }
