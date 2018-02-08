@@ -88,17 +88,38 @@ label span {
   font-size: 14px;
 }
 
+#currentTime {
+  width: 0;
+  height: 0;
+  margin-left: -5px;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 10px solid #03a5fe;
+  position: absolute;
+  top: -20px;
+  z-index: 9;
+}
 #timeSelector {
   position: relative;
-  margin: 10px 20px;
+  margin: 30px 20px 10px 20px;
   display: block;
   width: 95%;
 }
-#currentTime {
-  width: 5px;
-  height: 40px;
-  position: absolute;
-  top: -12px;
-  background-color: red;
-  z-index: 50;
+.noUi-connects {
+  background: #fff;
+}
+.noUi-connect {
+  background: #aaa;
+}
+.noUi-connect:hover {
+  background: #ccc;
+}
+.noUi-handle {
+  cursor: grab;
+  cursor: -webkit-grab;
+  z-index: 10;
+}
+.noUi-handle:active {
+  cursor: grabbing;
+  cursor: -webkit-grabbing;
 }
