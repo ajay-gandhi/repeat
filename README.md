@@ -1,4 +1,4 @@
 ## Tasks
 
-* Style UI
 * Build recents
+* Allow currentTime to be dragged?
