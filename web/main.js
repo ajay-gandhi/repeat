@@ -5,6 +5,7 @@ let playing = false;
 const selectFile = document.getElementById("selectFile")
 const audio = document.getElementById("audio");
 const timeSelector = document.getElementById("timeSelector");
+const selectedTime = document.getElementById("selectedTime");
 const togglePlayback = document.getElementById("togglePlayback");
 const waitBetweenRepeat = document.getElementById("waitBetweenRepeat");
 
@@ -23,6 +24,13 @@ timeSelector.noUiSlider.on("change", () => {
   START = parseFloat(values[0]).toFixed(2);
   END = parseFloat(values[1]).toFixed(2);
 });
+timeSelector.noUiSlider.on("update", () => {
+  const values = timeSelector.noUiSlider.get();
+  const s = parseFloat(values[0]).toFixed(2);
+  const e = parseFloat(values[1]).toFixed(2);
+  selectedTime.textContent = formatTime(s) + " - " + formatTime(e);
+});
+
 const updateSlider = () => {
   timeSelector.noUiSlider.updateOptions({
     start: [0, DURATION],
@@ -79,3 +87,24 @@ audio.addEventListener("timeupdate", () => {
     }, WAIT);
   }
 });
+
+// Misc functions
+function formatTime (seconds) {
+  let result = parseInt(seconds % 60);
+  if (seconds >= 60) {
+    const m = Math.floor(seconds / 60) % 60;
+    result = (m < 10 ? "0" + m : m) + ":" + (result < 10 ? "0" + result : result);
+  } else {
+    return "0:" + (result < 10 ? "0" + result : result);
+  }
+
+  if (seconds >= 3600) {
+    const h = Math.floor(seconds / 3600) % 24;
+    result = (h < 10 ? "0" + h : h) + ":" + result;
+  }
+  if (seconds >= 86400) {
+    const d = Math.floor(seconds / 86400);
+    result = d + "d, " + result;
+  }
+  return result.charAt(0) === "0" ? result.slice(1) : result;
+};
