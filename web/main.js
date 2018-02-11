@@ -54,6 +54,15 @@ SELECTORS.selectFileInput.addEventListener("change", () => {
   SELECTORS.firstPane.classList.add("Pane--advanced");
 });
 
+SELECTORS.selectFile.addEventListener("dragover", e => e.preventDefault());
+SELECTORS.selectFile.addEventListener("dragenter", e => e.preventDefault());
+
+SELECTORS.selectFile.addEventListener("drop", (evt) => {
+  SELECTORS.selectFileInput.files = evt.dataTransfer.files;
+  evt.stopPropagation();
+  evt.preventDefault();
+});
+
 // Audio actions
 SELECTORS.togglePlayback.addEventListener("click", togglePlaying);
 window.addEventListener("keydown", (e) => {
