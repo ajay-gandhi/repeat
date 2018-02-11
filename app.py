@@ -5,4 +5,4 @@ def console_log(s):
     print "JS console log: " + s
 
 eel.init('web')
-eel.start('index.html', size=(320, 120))
+eel.start('index.html', size=(400, 300))

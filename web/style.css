@@ -26,6 +26,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  color: #03a5fe;
   cursor: pointer;
 }
 #selectFileInput {
@@ -65,17 +66,18 @@
   width: 100%;
   height: 35px;
   font-size: 16px;
-  border: 1px solid #ccc;
+  color: #03a5fe;
+  border: 1px solid #03a5fe;
   border-radius: 5px;
   background: none;
   cursor: pointer;
 }
 #togglePlayback:hover {
-  background: #f2f2f2;
+  background: #f6f6f6;
 }
 #togglePlayback:active {
-  background: #ccc;
-  border-color: #999;
+  background: #dfdfdf;
+  border-color: #0087e0;
 }
 
 #waitBetweenRepeat {
@@ -101,7 +103,7 @@ label span {
 }
 #timeSelector {
   position: relative;
-  margin: 30px 20px 10px 20px;
+  margin: 15px 20px 10px 20px;
   display: block;
   width: 95%;
 }
@@ -109,10 +111,10 @@ label span {
   background: #fff;
 }
 .noUi-connect {
-  background: #aaa;
+  background: #03a5fe;
 }
 .noUi-connect:hover {
-  background: #ccc;
+  background: #21c3ff;
 }
 .noUi-handle {
   cursor: grab;
